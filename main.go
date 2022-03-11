@@ -1,18 +1,20 @@
 package main
 
 /*
+#include <stdlib.h>
 #cgo CFLAGS: -g -Wall
 #cgo LDFLAGS: -L. -L/usr/lib/swi-prolog/lib/x86_64-linux/ -lcaller -lswipl
 
-const char* callGregory(const char* predName);
+float * callGregory(const char* predName);
 */
 import "C"
 import (
 	"fmt"
-	"strconv"
+	"unsafe"
 )
 
 func main() {
+/*	
 	cfloat := C.GoString(C.callGregory(C.CString("pheads")))
 	if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
 		fmt.Println("probability is ", s)
@@ -21,4 +23,10 @@ func main() {
 	if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
 		fmt.Println("probability is ", s)
 	}
+*/
+	cfloat := C.callGregory(C.CString("pheads"))
+	r := make([]float32, 1)
+	copy(r, (*[1 << 20]float32)(unsafe.Pointer(cfloat))[:])
+	C.free(unsafe.Pointer(cfloat))
+	fmt.Println("probability is ", r[0])
 }
