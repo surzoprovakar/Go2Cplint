@@ -31,7 +31,7 @@ void init() {
     }
 }
 
-float * callGregory(const char* predName) {
+float callGregory(const char* predName) {
     init();
     term_t anspred, probpred;
     functor_t ppred;
@@ -48,11 +48,11 @@ float * callGregory(const char* predName) {
         PL_get_float(probpred, &probVal);
         cout <<"The probability of " << predName << " is " << probVal << endl;
 	//return std::to_string(probVal).c_str();
-	*res = probVal;
-	return res;		 
+	//*res = probVal;
+	//return res;
+	return probVal;		 
     }
-    *res = 0.0f; 
-    return res;
+    return 0.0f;
 
 }
 

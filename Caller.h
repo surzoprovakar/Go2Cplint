@@ -1,4 +1,4 @@
 extern "C"
 {
-float * callGregory(const char* predName);
+float callGregory(const char* predName);
 }

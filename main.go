@@ -5,7 +5,7 @@ package main
 #cgo CFLAGS: -g -Wall
 #cgo LDFLAGS: -L. -L/usr/lib/swi-prolog/lib/x86_64-linux/ -lcaller -lswipl
 
-float * callGregory(const char* predName);
+float callGregory(const char* predName);
 */
 import "C"
 import (
@@ -25,8 +25,9 @@ func main() {
 	}
 */
 	cfloat := C.callGregory(C.CString("pheads"))
-	r := make([]float32, 1)
-	copy(r, (*[1 << 20]float32)(unsafe.Pointer(cfloat))[:])
-	C.free(unsafe.Pointer(cfloat))
+	//r := make([]float32, 1)
+	//copy(r, (*[1 << 20]float32)(unsafe.Pointer(&cfloat))[:])
+	//C.free(unsafe.Pointer(cfloat))
+	r := (*[1 << 20]float32)(unsafe.Pointer(&cfloat))[:]
 	fmt.Println("probability is ", r[0])
 }
