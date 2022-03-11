@@ -1,4 +1,4 @@
 extern "C"
 {
-char* call(const char *probQ);
+const char* callGregory(const char* predName);
 }

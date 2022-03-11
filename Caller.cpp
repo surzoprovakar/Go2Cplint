@@ -31,39 +31,25 @@ void init() {
     }
 }
 
-char* call(const char *probQ) {
-    int len = strlen(probQ);
-    for (int i = 0; i < len; i++) {
-        query[i] = probQ[i];
-    }
-    return "";
-}
-
-void checkHeadProb() {
+const char* callGregory(const char* predName) {
     init();
-    term_t ansHeads, ansTails, probHeads, probTails;
-    functor_t pheads, ptails;
-    pheads = PL_new_functor(PL_new_atom(query), 1);
-    ptails = PL_new_functor(PL_new_atom("ptails"), 1);
-    ansHeads = PL_new_term_ref();
-    ansTails = PL_new_term_ref();
-    probHeads = PL_new_term_ref();
-    probTails = PL_new_term_ref();
+    term_t anspred, probpred;
+    functor_t ppred;
+    ppred = PL_new_functor(PL_new_atom(predName), 1);
+    anspred = PL_new_term_ref();
+    probpred = PL_new_term_ref();
 
     module_t coin_pl = PL_new_module(PL_new_atom("coin.pl"));
 
-    PL_cons_functor(ansHeads, pheads, probHeads);
+    PL_cons_functor(anspred, ppred, probpred);
     double probVal;
-    if (PL_call(ansHeads, coin_pl)) {
-        PL_get_float(probHeads, &probVal);
-        cout<<"The probability of heads is "<<probVal<<endl; 
+    if (PL_call(anspred, coin_pl)) {
+        PL_get_float(probpred, &probVal);
+        cout <<"The probability of " << predName << " is " << probVal << endl;
+	return std::to_string(probVal).c_str();	 
     }
+   return "";
 
-    // PL_cons_functor(ansTails, ptails, probTails);
-    // if (PL_call(ansTails, coin_pl)) {
-    //     PL_get_float(probTails, &probVal);
-    //     cout<<"The probability of tails is "<<probVal<<endl; 
-    // }
 }
 
 int main(int argc, char ** argv) {
@@ -71,7 +57,8 @@ int main(int argc, char ** argv) {
     //     cout<<"Usage Caller file.csv"<<endl;
     //     exit(1);
     // }
-    checkHeadProb();
+    callGregory("pheads"); 
+    callGregory("ptails"); 
     cout<<endl;
 }
 
