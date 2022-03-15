@@ -14,4 +14,4 @@ run:
 	LD_PRELOAD=$(PRELOAD) LD_LIBRARY_PATH=./ ./main 
 
 clean:
-	rm Caller 
+	rm -f Caller main *.so

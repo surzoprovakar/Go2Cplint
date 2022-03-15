@@ -14,20 +14,20 @@ import (
 )
 
 func main() {
-/*	
-	cfloat := C.GoString(C.callGregory(C.CString("pheads")))
-	if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
-		fmt.Println("probability is ", s)
-	}
-	cfloat = C.GoString(C.callGregory(C.CString("ptails")))
-	if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
-		fmt.Println("probability is ", s)
-	}
-*/
+	/*
+		cfloat := C.GoString(C.callGregory(C.CString("pheads")))
+		if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
+			fmt.Println("probability is ", s)
+		}
+		cfloat = C.GoString(C.callGregory(C.CString("ptails")))
+		if s, err := strconv.ParseFloat(cfloat, 32); err == nil {
+			fmt.Println("probability is ", s)
+		}
+	*/
 	cfloat := C.callGregory(C.CString("pheads"))
 	//r := make([]float32, 1)
 	//copy(r, (*[1 << 20]float32)(unsafe.Pointer(&cfloat))[:])
 	//C.free(unsafe.Pointer(cfloat))
 	r := (*[1 << 20]float32)(unsafe.Pointer(&cfloat))[:]
-	fmt.Println("probability is ", r[0])
+	fmt.Println("Probability is ", r[0])
 }
